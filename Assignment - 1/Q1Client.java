@@ -1,32 +1,36 @@
-import java.net.*;
 import java.io.*;
+import java.net.*;
+import java.util.*;
 
 class Q1Client {
-    public static void main(String args[]) {
+    public static void main(String[] args) throws Exception {
         try {
-            Socket socket = new Socket("localhost", 8235);
-            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            Socket s = new Socket("localhost", 6565);
 
-            String str1 = "", str2 = "";
-            while (!str1.equals("bye")) {
-                str1 = bufferedReader.readLine();
-                dataOutputStream.writeUTF(str1);
-                dataOutputStream.flush();
-                str2 = dataInputStream.readUTF();
+            DataInputStream is = new DataInputStream(s.getInputStream());
+            DataOutputStream os = new DataOutputStream(s.getOutputStream());
+            String clientMsg = "", serverMsg = "";
+            Scanner s1 = new Scanner(System.in);
 
-//                if(str1.equals("bye"))
-//                {
-//                    System.out.println("====> ( On Client File ) : "+str1+" || "+str2);
-//                    continue;
-//                }
+            while (true) {
+                System.out.print("You    : ");
+                clientMsg = s1.nextLine();
+                os.writeUTF(clientMsg);
+                os.flush();
 
-                System.out.println("Server : " + str2);
+                if (clientMsg.equals("bye")) {
+                    break;
+                }
+
+
+                serverMsg = is.readUTF();
+                System.out.println("server : " + serverMsg);
+
+
             }
-
-            dataOutputStream.close();
-            socket.close();
+            os.close();
+            is.close();
+            s.close();
 
         } catch (Exception e) {
             System.out.println(e);

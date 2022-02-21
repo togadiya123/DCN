@@ -1,35 +1,36 @@
-import java.net.*;
 import java.io.*;
+import java.net.*;
+import java.util.*;
 
 class Q1Server {
-    public static void main(String args[]) {
+    public static void main(String[] args) throws Exception {
         try {
-            ServerSocket serverSocket = new ServerSocket(8235);
-            Socket socket = serverSocket.accept();
+            ServerSocket ss = new ServerSocket(6565);
+            System.out.println("Server is listening at localhost 6565.");
 
-            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            Socket s = ss.accept();
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            DataInputStream is = new DataInputStream(s.getInputStream());
+            DataOutputStream os = new DataOutputStream(s.getOutputStream());
+            String clientMsg = "", serverMsg = "";
+            Scanner s1 = new Scanner(System.in);
 
-            String str1 = "", str2 = "";
-            while (!str1.equals("bye")) {
-                str1 = dataInputStream.readUTF();
-                System.out.println("Client : " + str1);
+            while (true) {
+                clientMsg = is.readUTF();
+                System.out.println("Client : " + clientMsg);
 
-//                if (str1.equals("bye")) {
-//                    System.out.println("====> ( On Server File ) : " + str1 + " || " + str2);
-//                    continue;
-//                }
+                if (clientMsg.equals("bye"))
+                    break;
 
-                str2 = bufferedReader.readLine();
-                dataOutputStream.writeUTF(str2);
-                dataOutputStream.flush();
+                System.out.print("You    : ");
+                serverMsg = s1.nextLine();
+                os.writeUTF(serverMsg);
+                os.flush();
             }
-            dataInputStream.close();
-            socket.close();
-            serverSocket.close();
-
+            os.close();
+            is.close();
+            s.close();
+            ss.close();
         } catch (Exception e) {
             System.out.println(e);
         }
