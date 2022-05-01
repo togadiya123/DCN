@@ -1,3 +1,5 @@
+//Name : Mansi Dungariya   roll no : 3168
+//Program 1(Server)
 import java.io.*;
 import java.net.*;
 class p1_server
@@ -8,13 +10,13 @@ class p1_server
 		{
 			ServerSocket serversocket = new ServerSocket(6363);
 			Socket socket=serversocket.accept();
-			DataInputStream instream=new
-					DataInputStream(socket.getInputStream());
-			DataOutputStream outstream=new
-					DataOutputStream(socket.getOutputStream());
+			DataInputStream instream=new DataInputStream(socket.getInputStream());
+			DataOutputStream outstream=new DataOutputStream(socket.getOutputStream());
+			
 			String finalmsg=instream.readUTF();
 			int i,j,k,counter=0;
 			String f="",op="";
+			
 			for(i=0;i<finalmsg.length();i+=8)
 			{
 				String decode=finalmsg.substring(i,i+8);
@@ -25,8 +27,7 @@ class p1_server
 						counter++;
 				}
 				if(counter%2==0)
-					System.out.println("Correct message passes of character :
-							"+((i/8)+1));
+					System.out.println("Correct message passes of character : "+((i/8)+1));
 				else
 				{
 					System.out.println("Please send the message again..");
@@ -41,10 +42,10 @@ class p1_server
 				f+=(char)Byte.parseByte(op,2);
 			}
 			System.out.println("Final Message:"+f);
+			
 			instream.close();
 			socket.close();
 			serversocket.close();
-
 		}
 		catch(Exception e)
 		{
