@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -38,8 +37,8 @@ class ClientBlockParity{
 				
 				System.out.println("Char : "+msg.charAt(i) + " ASCII :- "+ch+" Binary String With Parity Bit - "+temp);
 			}
-			
-			//System.out.println();
+
+
 			for(int i = 0;i<8;i++)
 			{
 				String temp = new String();
@@ -50,7 +49,7 @@ class ClientBlockParity{
 				gpmsg[msg.length()][i]= evenParity(temp);
 				
 				sendmsg = sendmsg + gpmsg[msg.length()][i];
-				
+
 				System.out.println("Column : "+i+" Parity Bit : "+gpmsg[msg.length()][i]);
 			}
 			System.out.println("Send Binary String        : "+sendmsg);
