@@ -1,4 +1,3 @@
-//Name : Shah Mansi Dungariya	Roll no : 3168
 //Program 2(Receiver)
 import java.util.Scanner;
 import java.io.*;

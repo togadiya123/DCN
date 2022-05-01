@@ -20,6 +20,7 @@ class p1_client
 			for(i=0;i<msg.length();i++)
 			{
 				op=Integer.toBinaryString(msg.charAt(i));
+				System.out.println("FUCK " + op);
 				counter=0;
 				while(op.length()<7)
 					op='0'+op;
